@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cafes 
+{% endblock %}
+
+{% block main %}
+
+<div>
+<h1 class="mb-4 text-center">Choose Your Social Workspace!</h1>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+      <div>
+      {% for cafe in cafes %}
+      <div class="card" style="max-width: 540px; ">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="static/vendorimages/{{ cafe.image }}" class="card-img-top" alt="{{ cafe.company }} ">   
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{cafe.company}}</h5> 
+                <ul class="list-group list-group-flush">            
+                  <li class="list-group-item">{{ cafe.address1 }}  {{ cafe.address2  or ''}} {{ cafe.city }}  ({{ cafe.distance }}k)</li>
+                  <li class="list-group-item">{{ cafe.phone }}</li>                  
+                  <li class="list-group-item">Hours: {{ cafe.hour_start}}-{{ cafe.hour_end}}</li>            
+                </ul>
+                <a class="stretched-link" href="cafe_signup?companyid={{cafe.companyid}} "></a> 
+              </div>
+            </div>
+          </div>           
+         
+          <div class="card-footer text-center">
+            <a href={{ cafe.website }} target="_blank">{{ cafe.website }}</a>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>   
+</div> 
+{% endblock %}

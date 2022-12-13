@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Employee Management  
+{% endblock %}
+
+{% block main %}
+
+<h1 class="mb-5 text-center">{{ comprow.company }} Employee Managment</h1>
+                    
+
+<table id="table"
+                    data-toggle="table"
+                    data-filter-control="true"
+                    data-show-search-clear-button="true"<
+                    data-sortable="true"                   
+                    data-pagination="true"
+                    data-show-columns="true"
+                    data-show-columns-toggle-all="true"
+                    class="table-bordered table-scroll">
+    <thead>  
+        <tr>                  
+            <th data-field="name" class="align-text-top " data-filter-control="input" data-sortable="true" >Employee</th> 
+            <th data-field="timestamp" class="align-text-top" data-filter-control="select" data-sortable="true">Sign-Up Date</th>                   
+            <th data-field="approved" class="align-text-top" data-filter-control="select" data-sortable="true" >Approved</th>           
+            <th data-field="approved_date" class="align-text-top" data-filter-control="select" data-sortable="true">Apporoved Date</th>         
+            <th data-field="approvedcheck" class="align-text-top">Approval</th>
+        
+                                        
+        </tr>
+    </thead>
+    <tbody>
+        {% for employ in employrow %}
+            <tr>                     
+                <td class="text-left"> {{ employ.firstname }} {{ employ.lastname }} </td> 
+                <td class="text-left"> {{ employ.timestamp }} </td>                          
+                <td class="text-left"> {{ employ.approved }} </td>
+                <td class="text-left"> {{ employ.approved_date if  employ.approved_date  }} </td>        
+                <td class="text-center">
+                    <form action="/employee_managment" method="post">    
+                        <div>
+                            {% if employ.approved =="Yes"  %}
+                                <input type="checkbox" name="approvedcheck" id="approvedcheck" style="border:none" checked=true>                   
+                            {% else %}
+                                <input type="checkbox" name="approvedcheck" style="border:none" id="approvedcheck" >                    
+                            {% endif %}
+                            <input class="btn btn-primary" value="UPDATE"  type="submit">
+                        </div>
+                        <input style="border:none"  name="userid" id="userid" type="hidden" value="{{ employ.id}}" readonly >                        
+                    </form>
+                </td>                                                  
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+

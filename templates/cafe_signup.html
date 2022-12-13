@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login 
+{% endblock %}
+
+
+{% block main %} 
+
+    <div class="col-md-2">
+        <a href="/cafes">
+            <i class="bi bi-arrow-left" ></i> Cafes
+        </a>
+    </div>
+
+    <div>    
+        <h1 class="mb-2 text-center" >{{ cafe.company }} </h1>
+        <p class="text-center"> {{ cafe.address1}} {{ cafe.city}} &nbsp;&nbsp; {{ cafe.phone }} &nbsp;&nbsp;  Hours: {{ cafe.hour_start}}-{{ cafe.hour_end}} </p>
+    </div>
+
+    <div class="col-md pt-4 d-flex justify-content-center">
+        <form method="post" action="/cafe_signup">
+            {{ form.csrf_token() }}
+            {{ form.companyid(value=cafe.companyid) }}
+            <div class="form-row  d-flex justify-content-center">
+                <div class="form-group col-md">
+                    {{form.date.label(class="col-form-label") }}               
+                    {% if form.date.errors %} 
+                        {{form.date(class="form-control is-invalid")}}
+                        {% for error in form.date.errors %}               
+                            <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+                        {% endfor %}
+                    {% else %}
+                        {{form.date(class="form-control", onchange="TodaysHours()")}}          
+                    {% endif %}
+                </div> 
+                <div class="form-group col-md">  
+                    {{form.start_time.label(class="col-form-label") }}  
+                    {{form.start_time(class="form-control", onchange="Update_EndTime()")}} 
+                </div>
+                <div class="form-group col-md"> 
+                    {{form.end_time.label(class="col-form-label") }}              
+                    {% if form.end_time.errors %} 
+                        {{form.end_time(class="form-control is-invalid")}}
+                            {% for error in form.end_time.errors %}               
+                                <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+                            {% endfor %}
+                    {% else %}                
+                        {{form.end_time(class="form-control", onfocus="Update_EndTime()")}}   
+                    {% endif %}            
+                </div>       
+                <div  class="form-group  align-self-end col-md">                     
+                    {{form.submit(class="btn btn-primary")}}  
+                </div>     
+            </div>    
+        </form>
+    </div>
+</div>    
+             
+
+    
+
+<hr>
+
+<div class="mt-5">
+    <p id="test"></p>
+    <H3 classe ="pb-0" style="font-family: Lucida Handwriting;">  <img src="static/hub.png" hight=45 width=50 alt="hub"> &nbsp;The Cafe Hub&nbsp; <img src="static/hub.png" hight=45 width=50  alt="hub">  </H3>
+    <table id="table"
+                    data-toggle="table"
+                    data-filter-control="true"
+                    data-show-search-clear-button="true"
+                    data-sortable="true"                   
+                    data-pagination="true"
+                    data-show-columns="true"
+                    data-show-columns-toggle-all="true"                   
+                    class="table table-bordered table-scroll pt-0">
+    <thead>  
+        <tr>                  
+            <th data-field="image" class="align-text-top " >Profile Picture</th> 
+            <th data-field="name" class="align-text-top" data-filter-control="input" data-sortable="true">Name</th>   
+            <th data-field="date" class="align-text-top"  data-filter-control="select" data-sortable="true">Date</th>                   
+            <th data-field="start_time" class="align-text-top" data-filter-control="select" data-sortable="true" >Start Time</th>           
+            <th data-field="end_time" class="align-text-top" data-filter-control="select" data-sortable="true">End Time Date</th>                                               
+        </tr>
+    </thead>
+    {% for person in people %}
+        <tr>                     
+            <td class="text-center">
+                <figure class="figure">
+                    <img src="static/generic-person-icon.png" hight=25 width=25  class="figure-img img-fluid rounded" alt="Profile Picture">                    
+                </figure>
+            </td>
+            <td class="text-left"> {{ person.firstname }} {{ person.lastname }} </td> 
+            <td class="text-left"> {{ person.date }} </td>                          
+            <td class="text-left"> {{ person.start_time }} </td>
+            <td class="text-left"> {{ person.end_time }} </td>     
+        </tr> 
+    {% endfor %}       
+</div>
+
+{% block javascript %}
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", TodaysHours )
+
+    //  End time = Start Time + 1 hour
+    function Update_EndTime(){        
+        let time = document.getElementById("start_time").value        
+        let timelist = time.split(":")
+        newtime = parseInt(timelist[0]) + 1
+        newEndTime = newtime + ":" + timelist[1]; 
+        document.getElementById("end_time").value = newEndTime              
+        };    
+    
+        // disable current day options if time before current time
+        function TodaysHours(){
+        var date =  document.getElementById('date').value;              
+        var inpDate = new Date(date);
+        var currDate = new Date(); 
+        var currTime = currDate.getHours()           
+        if(inpDate.setHours(0, 0, 0, 0) == currDate.setHours(0, 0, 0, 0)) {       
+            
+            var selectobject = document.getElementById("start_time").getElementsByTagName("option");
+            for (var i=0; i<selectobject.length; i++) {
+                if (parseInt(selectobject[i].value.substring(0,2)) <= currTime + 1)
+                {              
+                    // selectobject.remove(i);
+                    selectobject[i].disabled = true;                       
+                }
+                else
+                {
+                    selectobject[i].disabled = false;  
+                }             
+            }
+            
+            var selectobjectend = document.getElementById("end_time").getElementsByTagName("option");
+            for (var i=0; i<selectobjectend.length; i++) {
+                if (parseInt(selectobjectend[i].value.substring(0,2)) <= currTime + 2 )
+                {              
+                    // selectobject.remove(i);
+                    selectobjectend[i].disabled = true;                       
+                }
+                else
+                {
+                    selectobjectend[i].disabled = false;  
+                }             
+            } 
+           
+        }
+        else
+        {
+            var selectobjectall = document.getElementById("start_time").getElementsByTagName("option");
+            for (var i=0; i<selectobjectall.length; i++) {               
+                    selectobjectall[i].disabled = false;  
+            } 
+           
+            var selectobjectallend = document.getElementById("end_time").getElementsByTagName("option");
+            for (var i=0; i<selectobjectallend.length; i++) {               
+                    selectobjectallend[i].disabled = false;  
+            }             
+        }        
+                               
+    }
+    
+</script>
+{% endblock %}
+
+
+{% endblock %}
+
+

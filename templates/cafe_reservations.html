@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Social-Working Reservations
+{% endblock %}
+
+{% block main %} 
+    <H2 style="font-family: Lucida Handwriting;"> Cafe Reservations  </H2>  
+    <table id="table"
+                    data-toggle="table"
+                    data-filter-control="true"
+                    data-show-search-clear-button="true"<
+                    data-sortable="true"                   
+                    data-pagination="true"
+                    data-show-columns="true"
+                    data-show-columns-toggle-all="true"
+                    class="table-bordered table-scroll">
+    <thead>  
+        <tr>                  
+            <th data-field="id" class="align-text-top " data-filter-control="select" data-sortable="true" >ID</th> 
+            <th data-field="date" class="align-text-top " data-filter-control="select" data-sortable="true" >Date</th> 
+            <th data-field="start_time" class="align-text-top" data-filter-control="select" data-sortable="true">Start Time</th>
+            <th data-field="end_time" class="align-text-top" data-filter-control="select" data-sortable="true">End Time</th>                          
+            <th data-field="cafe" class="align-text-top" data-filter-control="select" data-sortable="true" >Cafe</th>                
+            <th data-field="cancel" class="align-text-top"></th>
+        
+                                        
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+            <tr>  
+                <td> {{ reservation.id }}</td>                     
+                <td> {{ reservation.date }}</td> 
+                <td> {{ reservation.start_time }} </td>                          
+                <td> {{ reservation.end_time}} </td>
+                <td> {{ reservation.cafe }} </td>        
+                <td>
+                    <form action="/cafe_reservations" method="post">    
+                        <div>                        
+                            <input class="btn btn-danger" value="CANCEL"  type="submit">  
+                        </div>
+                        <input style="border:none"  name="id" id="id" type="hidden" value="{{ reservation.id}}" readonly >                              
+                    </form>
+                </td>                                                  
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        
+{% endblock %}

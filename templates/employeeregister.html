@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Employer Signup 
+{% endblock %}
+
+{% block main %}
+
+<h1 class="mb-5 text-left">Employee Registration Form</h1>
+
+<form method="post" action="/employeeregister">
+  {{ form.csrf_token() }}
+  <div class="form-group row ">    
+    {{ form.company.label(class="col-form-label col-md-2 ml-2 text-left") }}     
+    {% if form.company.errors %} 
+      {{form.company(class="form-control is-invalid ml-2")}}
+      {% for error in form.company.errors %}               
+        <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+      {% endfor %}
+    {% else %}
+        {{form.company(class="form-control ml-2")}}
+    {% endif %}  
+  </div>
+  <div class="form-group row">
+    {{ form.contact.label(class="col-form-label col-md-2 ml-2 text-left") }}    
+    <div>
+      {{ form.firstname(class="form-control ml-2")}}      
+      <small class="form-text text-muted text-left ml-2">{{form.firstname.label}}</small>
+    </div> 
+    <div >
+      {{form.lastname(class="form-control ml-2")}}       
+      <small class="form-text text-muted text-left ml-2">{{form.lastname.label}}</small>
+    </div> 
+ </div>
+ <div class="form-group row ">
+  {{form.phone.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  <div>
+    {% if form.phone.errors %} 
+      {{form.phone(class="form-control is-invalid ml-2")}}
+      {% for error in form.phone.errors %}               
+        <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+      {% endfor %}
+    {% else %}
+        {{form.phone(class="form-control ml-2")}}
+    {% endif %}
+  </div> 
+ </div>     
+ <div class="form-group row ">
+  {{form.email.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  {{form.email(class="form-control ml-2")}}   
+</div>
+
+<hr class="mt-4"width="70%" align="left" style="height:2px;background-color: gray;">
+
+<div class="form-group row">
+  {{form.address1.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  {{form.address1(class="form-control ml-2 col-md-6")}}
+</div> 
+<div class="form-group row">
+  {{form.address2.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  {{form.address2(class="form-control ml-2 col-md-6")}}  
+</div>
+<div class="form-group row">
+  {{form.city.label(class="col-form-label col-md-2 ml-2 text-left") }}   
+  <div>
+    {{form.city(class="form-control ml-2")}}    
+  </div>
+    {{form.state.label(class="col-form-label col-md-1 ml-2 text-left") }}  
+  <div>
+    {{form.state(class="form-control ml-2")}}  
+  </div>   
+</div>  
+
+ <div class="form-group row" >
+    {{form.zipcode.label(class="col-form-label col-md-2 ml-2 text-left") }}   
+    {{form.zipcode(class="form-control ml-2")}}        
+ </div>
+
+ <div class="form-group row">
+    {{form.country.label(class="col-form-label col-md-2 ml-2 text-left") }}
+    <div>      
+      {% if form.country.errors %} 
+      {{form.country(class="form-control is-invalid ml-2")}}
+      {% for error in form.country.errors %}               
+        <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+      {% endfor %}
+      {% else %}
+        {{form.country(class="form-control ml-2")}}
+      {% endif %}
+    </div>       
+ </div> 
+
+ <hr class="mt-4"width="70%" align="left" style="height:2px;background-color: gray;"> 
+ 
+ <div class="form-group row">
+  {{form.password.label(class="col-form-label col-md-2 ml-2 text-left") }} 
+  {{form.password(class="form-control ml-2")}}  
+</div>
+<div class="form-group row">
+  {{form.confirm_password.label(class="col-form-label col-md-2 ml-2 text-left") }} 
+  <div>
+    {% if form.confirm_password.errors %} 
+        {{form.confirm_password(class="form-control is-invalid ml-2")}}
+            {% for error in form.confirm_password.errors %}               
+                  <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+            {% endfor %}
+    {% else %}
+      {{form.confirm_password(class="form-control ml-2")}}
+    {% endif %}
+  </div>
+</div>
+
+<div class="form-group row">
+  {{form.public_profile.label(class="col-form-label col-md-2 ml-2 text-left") }} 
+  {{form.public_profile(class="form-control ml-2", checked=False)}}  
+
+  {{form.submit(class="btn btn-primary ml-4")}}   
+</div>
+</form>   
+ 
+{% endblock %}

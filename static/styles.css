@@ -1,0 +1,175 @@
+nav .navbar-brand
+{
+    /* size and font for brand */
+    font-size: xx-large;
+    font-weight:bold;
+    font-family: "Lucida Handwriting";
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue 
+{
+    color:  #184e8e;    
+}
+
+/* bold the nave links */
+nav .navbar-nav .nav-link{ 
+    font-weight:bold ;
+}
+
+.hero {
+    margin-top: 20px;
+    text-align: left;
+    background-image: url("Working-in-cafe1.jpg");   
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center; 
+    height: 75vh;     
+  }
+
+
+
+
+    .hero h1 {
+        color: #fff;
+        font-weight: bold;
+        font-size: 40px;
+        margin-top: 10px;
+        margin-bottom: 15px; 
+        font-weight: 300;
+        line-height: 1.4;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+    }
+  
+  @media (min-width:992px) {
+    .hero h1 {
+        line-height: 1.2;
+        font-weight: bold;    
+    }
+  }
+  
+   .hero p {
+        color: rgba(255,255,255,0.8);
+        font-size: 20px;
+        margin-bottom: 30px;                     
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+  }
+
+
+  .form-group.required  .col-form-label:after {
+    content:"*";
+    color:red !important;
+  }
+
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+
+
+main
+{
+    /* Scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* Center contents */
+    text-align: center;
+    color:  #184e8e;  
+}
+
+main img
+{
+    /* Constrain images on small screens */
+    max-width: 100%;
+}
+.mt-0 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+th
+{
+  color: #375e8f; 
+}
+
+.card-header {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  color:  #375e8f !important; 
+  font-weight: bold !important;
+}
+
+.list-group-flush {
+  border-radius: 0;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.2rem 1rem;
+  color: #212529;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  font-size: xsmall !important;
+}
+
+.card:hover{
+transform: scale(1.05);
+box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+@media (max-width: 544px) {  
+  h1 {font-size:1.50rem;} 
+  h2 {font-size:1.25rem;} 
+  h3 {font-size:1rem;} 
+  h4 {font-size:.90rem;} 
+  h5 {font-size:.80rem;} 
+  h6 {font-size:.70rem;} 
+  p {font-size:.70rem;} 
+  .hero h1 {font-size:1.50rem !important;}
+  .hero p {font-size:.70rem !important;}  
+}
+
+
+@media (min-width: 1024px) {  
+  table.table-scroll tbody  {
+    display:  block; 
+    max-height: 500px;
+    overflow-y: scroll; 
+  }
+
+  table.table-scroll thead, table.table-scroll tbody tr  {
+    display: table;
+    width: 100%; 
+    table-layout: fixed;
+  } 
+
+  table.table-scroll thead {
+    width: calc( 100% - 1em )
+  } 
+}
+
+
+.nav-link { 
+  color: #375e8f !important;
+}
+
+
+.nav-link:hover, .nav-link:focus {
+  color: #113159!important;
+}
+
+select option:disabled {
+  background-color: rgb(187, 184, 184);
+}

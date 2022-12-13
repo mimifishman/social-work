@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account Update 
+{% endblock %}
+
+{% block main %}
+
+<h1 class="mb-5 text-left">Update Account Information</h1>
+
+<form method="post" action="/account_update">
+  {{ form.csrf_token() }}
+  {% if account.typeid == 1 %}
+    <div class="form-group row ">    
+      {{ form.company.label(class="col-form-label col-md-2 ml-2 text-left") }}     
+      {{ form.company(class="form-control ml-2", value=account.company)}}     
+    </div>
+  {% endif %}
+  <div class="form-group row">
+    {{ form.contact.label(class="col-form-label col-md-2 ml-2 text-left") }}    
+    <div>
+      {{ form.firstname(class="form-control ml-2", value=account.firstname)}}      
+      <small class="form-text text-muted text-left ml-2">{{form.firstname.label}}</small>
+    </div> 
+    <div >
+      {{form.lastname(class="form-control ml-2", value=account.lastname)}}       
+      <small class="form-text text-muted text-left ml-2">{{form.lastname.label}}</small>
+    </div> 
+ </div>
+ <div class="form-group row ">
+  {{form.phone.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  <div>
+    {% if form.phone.errors %} 
+      {{form.phone(class="form-control is-invalid ml-2", value=account.phone)}}
+      {% for error in form.phone.errors %}               
+        <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+      {% endfor %}
+    {% else %}
+        {{form.phone(class="form-control ml-2", value=account.phone)}}
+    {% endif %}
+  </div> 
+ </div>    
+
+
+<hr class="mt-4"width="70%" align="left" style="height:2px;background-color: gray;">
+
+<div class="form-group row">
+  {{form.address1.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  {{form.address1(class="form-control ml-2 col-md-6", value=account.address1)}}
+</div> 
+<div class="form-group row">
+  {{form.address2.label(class="col-form-label col-md-2 ml-2 text-left") }}
+  {{form.address2(class="form-control ml-2 col-md-6", value=account.address2)}}  
+</div>
+<div class="form-group row">
+  {{form.city.label(class="col-form-label col-md-2 ml-2 text-left") }}   
+  <div>
+    {{form.city(class="form-control ml-2", value=account.city)}}    
+  </div>
+    {{form.state.label(class="col-form-label col-md-1 ml-2 text-left") }}  
+  <div>
+    {{form.state(class="form-control ml-2", value=account.city)}}  
+  </div>   
+</div>  
+
+ <div class="form-group row" >
+    {{form.zipcode.label(class="col-form-label col-md-2 ml-2 text-left") }}   
+    {{form.zipcode(class="form-control ml-2", value=account.zipcode)}}        
+ </div>
+
+ <div class="form-group row">
+    {{form.country.label(class="col-form-label col-md-2 ml-2 text-left") }}
+    <div>      
+      {% if form.country.errors %} 
+      {{form.country(class="form-control is-invalid ml-2", value=account.country)}}
+      {% for error in form.country.errors %}               
+        <small class="invalid-feedback ml-2 text-left">{{error}}</small>              
+      {% endfor %}
+      {% else %}
+        {{form.country(class="form-control ml-2, value=account.country")}}
+      {% endif %}
+    </div>    
+ </div> 
+ <div class="form-group row">    
+  {% if account.typeid == 3 %}
+    {{form.public_profile.label(class="col-form-label col-md-2 ml-2 text-left") }} 
+    {% if account.public == 1 %}  
+      {{form.public_profile(class="form-control ml-2", checked=True, value=account.public)}}                  
+    {% else %}
+      {{form.public_profile(class="form-control ml-2", checked=False, value=account.public)}}                  
+    {% endif %}
+  {% endif %}   
+</div>
+
+<div class="form-group row">
+  <div class="col-md-1">
+    {{form.submit(class="btn btn-primary")}}   
+  </div>
+</div>
+</form>   
+ 
+{% endblock %}
